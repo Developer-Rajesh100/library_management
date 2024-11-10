@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{%load crispy_forms_tags %}
+{% block title %} <title>Book Detail</title> {% endblock %}
+{% block content %}
+
+<!--Book Detail-->
+<section class="d-flex m-5 justify-content-evenly align-items-center">
+  <div style="max-width: 50%">
+    <img src={{book.book_img.url}} style="height: 80vh" class="card-img-top" alt="...">
+  </div>
+  <div style="max-width: 50%">
+    <h5 class="mb-3">{{book.book_title}}</h5>
+    <p class="card-text">{{book.book_description}}</p>
+    <p class="card-text"> <strong>Borrowing Price:</strong> {{book.book_borrowing_price}}</p>
+    <p class="card-text text-center"><small class="text-body-secondary">{{book.book_category}}</small></p>
+    {% if request.user.is_authenticated %}
+      <form method="post" action="{% url 'library:borrowing' book.id %}">
+        {% csrf_token %}
+        <button  style="width: 100%" class="btn btn-warning px-5">Borrow Now</button>
+      </form>
+    {% endif %}
+  </div>
+</section>
+
+
+<section>
+    <h1 class="text-center">Reviews</h1>
+    <!--Review Form-->
+    <form method="post" style="width: 50%; margin: auto" class="border border p-5 shadow-lg rounded-2 my-5">
+        {% csrf_token %}
+        <h1 class="text-center mb-3">Add Your Review!</h1>
+        {{review_form | crispy}}
+        <input type="submit" value="Submit Comment" style="width: 100%" class="btn btn-outline-warning">
+    </form>
+
+    <!--All Reviews-->
+    <div style="width: 50%; margin: auto" class="border border p-5 shadow-lg rounded-2 my-5">
+        <h5 class="mb-3">Total Reviews: {{reviews | length}}</h5>
+        {% for review in reviews %}
+            <div class="card my-3">
+              <div class="card-body">
+                  <div style="display: flex; justify-content: space-between">
+                    <p><strong>{{review.user.username}}</strong></p>
+                    <p><small>{{review.created_at}}</small></p>
+                  </div>
+                <p>{{review.comment}}</p>
+              </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}

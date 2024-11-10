@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+<!--Title Block-->
+{% block title %}
+<title>Registration</title>
+{% endblock %}
+
+<!--Content Block-->
+{% block content %}
+
+<!--<form method="post" style="width: 50%; margin: auto" class="border border-3 p-5 border-info-subtle rounded-2 my-5">-->
+<!--    {% csrf_token %}-->
+<!--    <h1 class="text-center mb-3">Registration</h1>-->
+<!--    {{form | crispy}}-->
+<!--    <input type="submit" value="Register" style="width: 100%" class="btn btn-outline-info">-->
+<!--</form>-->
+
+<form method="post" style="width: 50%; margin: auto" class="border border-3 p-5 border-info-subtle rounded-2 my-5">
+    {% csrf_token %}
+    <h1 class="text-center mb-3">Registration</h1>
+    {{form | crispy}}
+    <input type="submit" value="Register" style="width: 100%" class="btn btn-outline-info">
+</form>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+<!--Title-->
+{% block title %} <title>Home Page</title> {% endblock %}
+
+<!--Content-->
+{% block content %}
+<!--Hero Section-->
+  <section>
+    <h1 class="text-center mt-5">This is Hero Section!!!</h1>
+  </section>
+
+
+
+    <section class="d-flex flex-wrap justify-content-center gap-5 mb-5">
+      {% for book in data %}
+          <div class="card" style="width: 18rem;">
+            <img src="{{ book.book_img.url }}" style="height: 400px" class="card-img-top" alt="{{book.book_img.url}}">
+                <div class="card-body">
+                  <h5 class="card-title">{{book.book_title}}</h5>
+                  <p class="card-text"> <strong>Borrowing Price:</strong> {{book.book_borrowing_price}}</p>
+                  <p class="card-text"> <strong>Category:</strong> {{book.book_category}}</p>
+                  <a href="{% url 'library:book_detail' book.id %}" class="card-link">View Details</a>
+                </div>
+          </div>
+      {% endfor %}
+    </section>
+{% endblock %}
