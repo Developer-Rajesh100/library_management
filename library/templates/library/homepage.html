@@ -11,6 +11,23 @@
   </section>
 
 
+<!--Filter by Category-->
+<section class="mx-5 d-flex flex-wrap gap-3">
+    <h3>Filter by Category: </h3>
+    <div class="form-check">
+          <p class="form-check-label">
+              <a href="{% url 'library:homepage' %}" style="text-decoration: none">All Brands</a>
+          </p>
+    </div>
+    {% for category in categories %}
+        <div class="form-check">
+          <p class="form-check-label">
+              <a href="{% url 'library:category_wise_book' category.category %}" style="text-decoration: none">{{category.category}}</a>
+          </p>
+        </div>
+    {% endfor %}
+</section>
+
 
     <section class="d-flex flex-wrap justify-content-center gap-5 mb-5">
       {% for book in data %}

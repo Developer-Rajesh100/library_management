@@ -9,14 +9,19 @@ from django.views import View
 from django.contrib.auth.models import User
 from django.contrib import messages
 from authentication.models import UserAccount
-from .models import Book, Borrow, Review
+from .models import Book, Borrow, Review, Category
 from .forms import DepositForm, ReviewForm
 
 ########## Home Page View ##########
 class HomepageView(View):
-    def get(self, request):
-        context = {'data': Book.objects.all()}
-        return render(request, 'library/homepage.html', context)
+    def get(self, request, category_slug = None):
+        data = Book.objects.all()
+        categories = Category.objects.all()
+        if category_slug is not None:
+            category = Category.objects.get(category = category_slug)
+            data = Book.objects.filter(book_category = category)
+            return render(request, 'library/homepage.html', {'data': data, 'categories': categories})
+        return render(request, 'library/homepage.html', {'data': data, 'categories': categories})
 
 
 ########## Book Detail View ##########
