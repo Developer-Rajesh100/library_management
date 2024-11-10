@@ -46,6 +46,7 @@ class BookDetailView(DetailView):
                 return redirect('library:book_detail', id=book.id)
         else:
             messages.warning(request, "You can only review books that you have borrowed!")
+            return redirect('library:book_detail', id=book.id)
         context = self.get_context_data(review_form=review_form)
         return self.render_to_response(context)
 

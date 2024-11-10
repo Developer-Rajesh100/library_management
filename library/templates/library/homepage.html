@@ -5,41 +5,54 @@
 
 <!--Content-->
 {% block content %}
-<!--Hero Section-->
-  <section>
-    <h1 class="text-center mt-5">This is Hero Section!!!</h1>
-  </section>
 
-
-<!--Filter by Category-->
-<section class="mx-5 d-flex flex-wrap gap-3">
-    <h3>Filter by Category: </h3>
+<section class="d-flex mt-5">
+  <!--Filter by Category-->
+  <div class="mx-5">
+    <h3>Filter:</h3>
     <div class="form-check">
-          <p class="form-check-label">
-              <a href="{% url 'library:homepage' %}" style="text-decoration: none">All Brands</a>
-          </p>
+      <p class="form-check-label">
+        <a href="{% url 'library:homepage' %}" style="text-decoration: none"
+          >All Brands</a
+        >
+      </p>
     </div>
     {% for category in categories %}
-        <div class="form-check">
-          <p class="form-check-label">
-              <a href="{% url 'library:category_wise_book' category.category %}" style="text-decoration: none">{{category.category}}</a>
-          </p>
-        </div>
+    <div class="form-check">
+      <p class="form-check-label">
+        <a
+          href="{% url 'library:category_wise_book' category.category %}"
+          style="text-decoration: none"
+          >{{category.category}}</a
+        >
+      </p>
+    </div>
     {% endfor %}
+  </div>
+
+  <div class="d-flex flex-wrap justify-content-center gap-5 mb-5">
+    {% for book in data %}
+    <div class="card" style="width: 18rem">
+      <img
+        src="{{ book.book_img.url }}"
+        style="height: 400px"
+        class="card-img-top"
+        alt="{{book.book_img.url}}"
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{book.book_title}}</h5>
+        <p class="card-text">
+          <strong>Borrowing Price:</strong> {{book.book_borrowing_price}}
+        </p>
+        <p class="card-text">
+          <strong>Category:</strong> {{book.book_category}}
+        </p>
+        <a href="{% url 'library:book_detail' book.id %}" class="card-link"
+          >View Details</a
+        >
+      </div>
+    </div>
+    {% endfor %}
+  </div>
 </section>
-
-
-    <section class="d-flex flex-wrap justify-content-center gap-5 mb-5">
-      {% for book in data %}
-          <div class="card" style="width: 18rem;">
-            <img src="{{ book.book_img.url }}" style="height: 400px" class="card-img-top" alt="{{book.book_img.url}}">
-                <div class="card-body">
-                  <h5 class="card-title">{{book.book_title}}</h5>
-                  <p class="card-text"> <strong>Borrowing Price:</strong> {{book.book_borrowing_price}}</p>
-                  <p class="card-text"> <strong>Category:</strong> {{book.book_category}}</p>
-                  <a href="{% url 'library:book_detail' book.id %}" class="card-link">View Details</a>
-                </div>
-          </div>
-      {% endfor %}
-    </section>
 {% endblock %}

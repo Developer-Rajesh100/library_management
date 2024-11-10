@@ -6,46 +6,38 @@
 <!--Content-->
 {% block content %}
 
-  <h1 class="text-center my-5">Hello, {{ user.first_name }}</h1>
+<h1 class="text-center my-5">Hello, {{ user.first_name }}</h1>
 
 <!--  Borrow Record-->
 <div class="container mt-4">
-    <div class="d-flex justify-content-between my-3">
-        <h3 class="text-center">Your Borrowing Record</h3>
-        <h3>Your Current Balance: {{balance}}</h3>
-    </div>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Borrowing ID</th>
-                <th>Book Title</th>
-                <th>Borrowing Price</th>
-                <th>Borrowed On</th>
-                <th>Return</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for record in borrow_records %}
-            <tr>
-                <td>{{ record.borrow_id }}</td>
-                <td>{{ record.book_title }}</td>
-                <td>{{ record.book_borrowing_price }}</td>
-                <td>{{ record.borrowing_on }}</td>
-                <td>
-                    <a class="btn btn-success btn-sm">Return</a>
-                </td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="4" class="text-center">No books borrowed yet.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+  <div class="d-flex justify-content-between my-3">
+    <h3 class="text-center">Your Borrowing Record</h3>
+    <h3>Your Current Balance: {{balance}}</h3>
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Borrowing ID</th>
+        <th>Book Title</th>
+        <th>Borrowing Price</th>
+        <th>Borrowed On</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for record in borrow_records %}
+      <tr>
+        <td>{{ record.borrow_id }}</td>
+        <td>{{ record.book_title }}</td>
+        <td>{{ record.book_borrowing_price }}</td>
+        <td>{{ record.borrowing_on }}</td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="4" class="text-center">No books borrowed yet.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
-
-
-
-
 
 {% endblock %}
